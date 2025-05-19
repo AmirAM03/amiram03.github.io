@@ -1,438 +1,167 @@
 /* css/style.css */
 
-/* --- Base & Variables --- */
+/* --- Base & Variables --- (Keep existing, add new gradient vars if desired) */
 :root {
-    /* Light Theme (Default) */
-    --bg-color: #f4f7f6; /* Off-white */
+    /* ... existing variables ... */
+    --bg-color: #f4f7f6;
     --text-color: #333333;
     --header-bg: #ffffff;
-    --header-text: #333333;
-    --card-bg: #ffffff;
-    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    --border-color: #e0e0e0;
-    --primary-color: #007bff; /* A nice blue */
-    --secondary-color: #6c757d; /* A neutral gray */
+    /* ... etc ... */
 
-    /* Gradient Options - Choose or create your own! (coolors.co, uiGradients.com) */
-    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Purpleish */
-    --gradient-2: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); /* Pinkish */
-    --gradient-3: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); /* Bright Blue */
-    --gradient-main: var(--gradient-1); /* Default active gradient */
+    /* More Gradient Options - For dynamic hero or section themes */
+    --gradient-hero-1: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
+    --gradient-hero-2: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+    --gradient-hero-3: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    --gradient-hero-4: linear-gradient(120deg, #ff758c 0%, #ff7eb3 100%);
+    --gradient-hero-5: linear-gradient(120deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-hero-6: linear-gradient(120deg, #fa709a 0%, #fee140 100%);
 
-    --font-primary: 'Poppins', sans-serif;
-    --font-secondary: 'Roboto Mono', monospace;
 
-    --max-width: 1100px;
-    --border-radius: 8px;
-    --transition-speed: 0.3s;
+    --gradient-text-on-dark: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+    --gradient-main: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Default for .gradient-text */
+
+    /* Section specific theme colors (optional, can be used for backgrounds or accents) */
+    --cybersecurity-accent: #00a8cc;
+    --datascience-accent: #f37736;
+    --software-accent: #7bc043;
+    --neuroscience-accent: #8e44ad;
+
+    /* Hero gradient animation variables */
+    --hero-gradient-angle: 120deg; /* Initial angle */
 }
 
 [data-theme="dark"] {
-    --bg-color: #1a1a2e; /* Dark blue/purple */
+    /* ... existing dark theme variables ... */
+    --bg-color: #1a1a2e;
     --text-color: #e0e0e0;
-    --header-bg: #161625;
-    --header-text: #e0e0e0;
-    --card-bg: #232333;
-    --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
-    --border-color: #303040;
-    --primary-color: #3c91e6; /* Brighter blue for dark mode */
-    /* Keep gradients or adjust for dark mode if needed */
+    /* ... etc ... */
+    --gradient-text-on-dark: linear-gradient(135deg, #a7a7a7 0%, #cccccc 100%);
 }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+/* ... (keep existing base styles like *, html, body, .container, typography) ... */
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: var(--font-primary);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    line-height: 1.7;
-    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-}
-
-.container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* --- Typography & Links --- */
-h1, h2, h3 {
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--text-color); /* Will be overridden by .gradient-text */
-}
-h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
-h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
-h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
-
-p { margin-bottom: 1rem; }
-
-a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: color var(--transition-speed) ease;
-}
-a:hover { color: #0056b3; } /* Darken primary */
-[data-theme="dark"] a:hover { color: #61dafb; }
-
-.gradient-text {
-    background: var(--gradient-main);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    /* Fallback for browsers that don't support background-clip */
-    /* color: var(--primary-color);  */
-}
-
-/* --- Header / Navigation --- */
-#main-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--header-bg);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-    transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    padding: 15px 0;
-}
-[data-theme="dark"] #main-header { box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-
-#main-header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: 700;
+.gradient-text { /* For section titles etc. */
     background: var(--gradient-main);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-#main-header nav ul {
-    list-style: none;
-    display: flex;
+.hero-gradient-text { /* Specifically for hero section name, if different style needed */
+    background: var(--gradient-text-on-dark); /* Whiteish gradient for text on dynamic bg */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-#main-header nav ul li {
-    margin-left: 25px;
-}
 
-#main-header nav ul li a {
-    color: var(--header-text);
-    font-weight: 600;
-    padding: 5px 0;
-    position: relative;
-}
-#main-header nav ul li a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-main);
-    transition: width var(--transition-speed) ease;
-}
-#main-header nav ul li a:hover::after,
-#main-header nav ul li a.active::after {
-    width: 100%;
-}
+/* --- Header / Navigation --- (Keep existing) */
+/* ... */
 
-.theme-toggle-btn {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: var(--header-text);
-    padding: 5px;
-}
-.theme-toggle-btn svg {
-    width: 24px;
-    height: 24px;
-    transition: transform var(--transition-speed) ease;
-}
-.theme-toggle-btn:hover svg {
-    transform: scale(1.1) rotate(15deg);
-}
-
-/* --- Sections --- */
+/* --- Sections --- (Keep existing general .cv-section styles) */
 .cv-section, #hero {
-    padding: 80px 0; /* Space for fixed header */
-    opacity: 0; /* For scroll animations */
-    transform: translateY(30px); /* For scroll animations */
+    padding: 80px 0;
+    opacity: 0;
+    transform: translateY(30px);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    position: relative; /* Important for z-indexing hero content over gradient */
+    overflow: hidden; /* Prevent gradient overflow if it's too large during animation */
 }
 .cv-section.visible, #hero.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.full-height-section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center; /* Often good for hero/intro sections */
-}
-.full-height-section > .container {
-    width: 100%;
-}
+/* ... (Keep existing .full-height-section, .section-title styles) ... */
 
-.section-title {
-    text-align: center;
-    margin-bottom: 40px;
-    position: relative;
-}
-.section-title::after { /* Underline effect */
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: var(--gradient-main);
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
 
 /* --- Hero Section --- */
 #hero {
-    background: var(--gradient-1); /* Default gradient background for hero */
-    /* Or use an image: background: url('../assets/images/hero-bg.jpg') no-repeat center center/cover; */
-    color: #fff; /* Text color on gradient background */
+    color: #fff; /* Default text color on dynamic gradient background */
     text-align: left;
+    display: flex; /* To center content vertically */
+    align-items: center; /* To center content vertically */
 }
-#hero h1, #hero p { color: #fff; } /* Override default text color */
-#hero .gradient-text {
-    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); /* Light gradient for text on dark bg */
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-[data-theme="dark"] #hero { background: linear-gradient(135deg, #2c3e50, #1a1a2e); } /* Darker hero gradient */
+#hero h1, #hero p { color: #fff; } /* Ensure text is white */
 
+.dynamic-gradient-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Behind hero content */
+    /* The actual gradient will be set by JS */
+    background-size: 400% 400%; /* For smooth animation of gradient position */
+    animation: animatedGradient 15s ease infinite; /* CSS animation for movement */
+    transition: background 1s ease-in-out; /* Smooth transition between gradients */
+}
+
+@keyframes animatedGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
 
 .hero-content {
+    position: relative; /* To sit on top of the .dynamic-gradient-background */
+    z-index: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    width: 100%; /* Ensure it takes full width of container */
 }
-.hero-text { flex: 1.2; }
-.hero-visual { flex: 0.8; text-align: center; }
-#profile-image {
-    max-width: 300px;
-    width: 100%;
-    border-radius: 50%; /* Circle */
-    border: 5px solid rgba(255,255,255,0.3);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-}
-
-.tagline {
-    font-size: 1.5rem;
-    font-family: var(--font-secondary);
-    margin-bottom: 1.5rem;
-    min-height: 2.2em; /* To prevent layout shift during typing */
-}
-.cursor {
-    display: inline-block;
-    background-color: #fff; /* Or var(--primary-color) */
-    animation: blink 1s step-end infinite;
-    width: 2px; /* Adjust as needed */
-    margin-left: 2px;
-}
-@keyframes blink {
-  from, to { background-color: transparent; }
-  50% { background-color: #fff; } /* Or var(--primary-color) */
-}
-[data-theme="dark"] .cursor { background-color: var(--primary-color); }
-[data-theme="dark"] @keyframes blink {
-  from, to { background-color: transparent; }
-  50% { background-color: var(--primary-color); }
-}
+/* ... (Keep existing .hero-text, .hero-visual, #profile-image, .tagline, .cursor styles) ... */
+/* ... (Keep existing .scroll-down-indicator styles) ... */
 
 
-.scroll-down-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+/* --- Buttons (Keep existing, but ensure hero buttons are styled for contrast) --- */
+.btn-primary { /* Hero primary button */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    color: #fff;
+    border: 2px solid #fff;
 }
-.scroll-down-indicator a span {
-    display: block;
-    width: 20px;
-    height: 20px;
-    border-bottom: 2px solid #fff;
-    border-right: 2px solid #fff;
-    transform: rotate(45deg);
-    margin: -5px;
-    animation: scroll-pulse 2s infinite;
+.btn-primary:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
-.scroll-down-indicator a span:nth-child(2) { animation-delay: -0.2s; }
-.scroll-down-indicator a span:nth-child(3) { animation-delay: -0.4s; }
-
-@keyframes scroll-pulse {
-    0% { opacity: 0; transform: rotate(45deg) translate(-10px, -10px); }
-    50% { opacity: 1; }
-    100% { opacity: 0; transform: rotate(45deg) translate(10px, 10px); }
-}
-
-
-/* --- Buttons --- */
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    border-radius: var(--border-radius);
-    font-weight: 600;
-    text-align: center;
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-    margin-right: 10px;
-    margin-bottom: 10px; /* For stacking on mobile */
+/* Primary button for normal sections (if different) */
+.cv-section .btn-primary {
+    background: var(--gradient-main); /* Use standard gradient */
+    color: #fff;
     border: none;
 }
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-}
-.btn-primary {
-    background: var(--gradient-main);
-    color: #fff;
-}
-.btn-primary:hover { /* Keep text white, shadow might change a bit if needed */
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-}
-.btn-secondary {
+
+.btn-secondary { /* Hero secondary button */
     background-color: transparent;
-    color: #fff; /* For hero section */
-    border: 2px solid #fff; /* For hero section */
+    color: #fff;
+    border: 2px solid #fff;
 }
-/* Adjust secondary btn for normal sections if needed */
+.btn-secondary:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+/* Secondary button for normal sections */
 .cv-section .btn-secondary {
     color: var(--text-color);
-    border-color: var(--text-color);
+    border-color: var(--text-color); /* Or var(--primary-color) */
 }
 [data-theme="dark"] .cv-section .btn-secondary {
     color: var(--primary-color);
     border-color: var(--primary-color);
 }
 
-/* --- Section Specifics & Cards --- */
-.section-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    text-align: left;
-}
-.grid-item {
-    background-color: var(--card-bg);
-    padding: 25px;
-    border-radius: var(--border-radius);
-    box-shadow: var(--card-shadow);
-    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
-}
-.grid-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-[data-theme="dark"] .grid-item:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
 
-.grid-item h3 {
-    margin-top: 0;
-    color: var(--primary-color); /* Or use gradient-text */
-}
-[data-theme="dark"] .grid-item h3 { color: var(--primary-color); }
+/* --- Section Specific Theming (Optional Accents) --- */
+#cybersecurity .section-title::after { background: var(--cybersecurity-accent); }
+#cybersecurity .grid-item h3 { color: var(--cybersecurity-accent); }
+/* Add similar for other sections if desired for their accent colors */
+#datascience-ai .section-title::after { background: var(--datascience-accent); }
+#datascience-ai .grid-item h3 { color: var(--datascience-accent); }
 
+#software-engineering .section-title::after { background: var(--software-accent); }
+#software-engineering .grid-item h3 { color: var(--software-accent); }
 
-/* --- Contact Section --- */
-#contact-form input,
-#contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    background-color: var(--card-bg); /* Consistent with cards */
-    color: var(--text-color);
-    font-family: var(--font-primary);
-}
-#contact-form textarea {
-    resize: vertical;
-}
-.social-links {
-    text-align: center;
-    margin-top: 30px;
-}
-.social-links a {
-    margin: 0 15px;
-    display: inline-block;
-}
-.social-links img {
-    width: 30px;
-    height: 30px;
-    filter: grayscale(50%); /* Subtle effect */
-    transition: filter var(--transition-speed) ease, transform var(--transition-speed) ease;
-}
-.social-links a:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.1);
-}
-[data-theme="dark"] .social-links img { filter: invert(80%) sepia(10%) saturate(500%) hue-rotate(180deg) brightness(150%) contrast(90%); /* Adjust for dark mode icons */ }
-[data-theme="dark"] .social-links a:hover img { filter: none; }
+#neuroscience .section-title::after { background: var(--neuroscience-accent); }
+#neuroscience .grid-item h3 { color: var(--neuroscience-accent); }
 
-
-/* --- Footer --- */
-#main-footer {
-    background-color: var(--card-bg); /* Or header-bg */
-    padding: 30px 0;
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-    margin-top: 50px;
-    font-size: 0.9em;
-}
-
-/* --- Back to Top Button --- */
-#back-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--gradient-main);
-    color: white;
-    width: 40px;
-    height: 40px;
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
-    border-radius: 50%;
-    box-shadow: var(--card-shadow);
-    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
-    opacity: 0;
-    transform: translateY(20px);
-}
-#back-to-top.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-    #main-header .container { flex-direction: column; }
-    #main-header nav { margin-top: 10px; }
-    #main-header nav ul li { margin: 0 10px; }
-
-    .hero-content { flex-direction: column; text-align: center; }
-    .hero-text { margin-bottom: 30px; }
-    #profile-image { max-width: 200px; }
-
-    .full-height-section { min-height: auto; padding: 60px 0; } /* Adjust for mobile */
-}
+/* ... (Keep existing .section-grid, .grid-item, Contact, Footer, Back-to-top, Responsive styles) ... */

@@ -5,21 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AmirMohammad Ahmadi - CV</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- Consider adding Google Fonts here if you choose specific ones -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- Header / Navigation -->
     <header id="main-header">
         <div class="container">
-            <div class="logo">[YN]</div> <!-- Your Initials or a small logo SVG -->
+            <div class="logo">[YN]</div>
             <nav>
                 <ul>
                     <li><a href="#hero" class="nav-link active">Home</a></li>
                     <li><a href="#cybersecurity" class="nav-link">CyberSecurity</a></li>
+                    <li><a href="#datascience-ai" class="nav-link">Data Science & AI</a></li>
+                    <li><a href="#software-engineering" class="nav-link">Software Engineering</a></li>
                     <li><a href="#neuroscience" class="nav-link">Neuroscience</a></li>
-                    <li><a href="#swe-ds-ai" class="nav-link">Software & AI</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
@@ -31,23 +30,23 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="hero" class="full-height-section active-section">
+    <section id="hero" class="full-height-section active-section"> {/* Removed active-section, JS will handle */}
+        <div class="dynamic-gradient-background"></div> {/* ADDED FOR DYNAMIC GRADIENT */}
         <div class="container hero-content">
             <div class="hero-text">
-                <h1>Hi, I'm <span class="gradient-text">AmirMohammad</span></h1>
+                <h1>Hi, I'm <span class="hero-gradient-text">AmirMohammad</span></h1> {/* Changed class for hero text gradient */}
                 <p class="tagline">A passionate <span id="typed-text"></span><span class="cursor"> </span></p>
-                <p>Exploring the intersections of CyberSecurity, Neuroscience, and AI-driven Software Solutions. Crafting innovative and secure digital experiences.</p>
+                <p>Exploring the intersections of CyberSecurity, Data Science, AI, Software Engineering, and Neuroscience. Crafting innovative and secure digital experiences.</p>
                 <a href="#cybersecurity" class="btn btn-primary scroll-link">Explore My Work</a>
-                <a href="assets/[Your-Resume].pdf" target="_blank" class="btn btn-secondary">Download Resume</a>
+                <a href="assets/Master.pdf" target="_blank" class="btn btn-secondary">Download Master Resume</a>
             </div>
             <div class="hero-visual">
-                <!-- Placeholder for a cool visual/animation or profile image -->
                 <img src="assets/images/profile_placeholder.png" alt="Your Name" id="profile-image">
             </div>
         </div>
         <div class="scroll-down-indicator">
             <a href="#cybersecurity" aria-label="Scroll to next section" class="scroll-link">
-                <span></span><span></span><span></span> <!-- Animated chevrons -->
+                <span></span><span></span><span></span>
             </a>
         </div>
     </section>
@@ -57,10 +56,31 @@
         <div class="container">
             <h2 class="section-title"><span class="gradient-text">CyberSecurity</span> Expertise</h2>
             <div class="section-grid">
-                <!-- Content for CyberSecurity: skills, projects, certs -->
                 <div class="grid-item skill-card"><h3>Threat Modeling</h3><p>Details...</p></div>
                 <div class="grid-item project-card"><h3>Project X</h3><p>Secure App Dev...</p></div>
                 <div class="grid-item cert-card"><h3>Cert Y</h3><p>Issued by...</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Science & AI Section -->
+    <section id="datascience-ai" class="cv-section full-height-section">
+        <div class="container">
+            <h2 class="section-title">Innovations in <span class="gradient-text">Data Science & AI</span></h2>
+            <div class="section-grid">
+                <div class="grid-item skill-card"><h3>Machine Learning</h3><p>Details...</p></div>
+                 <div class="grid-item project-card"><h3>AI Project Z</h3><p>NLP Application...</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Software Engineering Section -->
+    <section id="software-engineering" class="cv-section full-height-section">
+        <div class="container">
+            <h2 class="section-title">Crafting <span class="gradient-text">Software Solutions</span></h2>
+            <div class="section-grid">
+                <div class="grid-item skill-card"><h3>Full-Stack Dev</h3><p>Details...</p></div>
+                <div class="grid-item project-card"><h3>Web App W</h3><p>Using React & Node...</p></div>
             </div>
         </div>
     </section>
@@ -70,24 +90,13 @@
         <div class="container">
             <h2 class="section-title">Adventures in <span class="gradient-text">Neuroscience</span></h2>
             <div class="section-grid">
-                <!-- Content for Neuroscience -->
                  <div class="grid-item skill-card"><h3>BCI Research</h3><p>Details...</p></div>
+                 <div class="grid-item project-card"><h3>Cognitive Study V</h3><p>EEG Analysis...</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Software Engineering & Data Science/AI Section -->
-    <section id="swe-ds-ai" class="cv-section full-height-section">
-        <div class="container">
-            <h2 class="section-title"><span class="gradient-text">Software</span> & <span class="gradient-text">AI</span> Innovations</h2>
-            <div class="section-grid">
-                <!-- Content for Software Engineering and Data Science/AI -->
-                <div class="grid-item skill-card"><h3>Machine Learning</h3><p>Details...</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
+    <!-- Contact Section (remains the same) -->
     <section id="contact" class="cv-section">
         <div class="container">
             <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
@@ -98,21 +107,18 @@
                 <button type="submit" class="btn btn-primary">Send Message</button>
             </form>
             <div class="social-links">
-                <!-- Add your social media links here (e.g., LinkedIn, GitHub) -->
                 <a href="#" aria-label="LinkedIn"><img src="assets/images/linkedin-icon.svg" alt="LinkedIn"></a>
                 <a href="#" aria-label="GitHub"><img src="assets/images/github-icon.svg" alt="GitHub"></a>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer id="main-footer">
         <div class="container">
-            <p>© <span id="current-year"></span> AM. All rights reserved. Crafted with <span class="gradient-text"><3</span></p>
+            <p>© <span id="current-year"></span> [A.M]. All rights reserved. Crafted with <span class="gradient-text"><3</span></p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
     <a href="#hero" id="back-to-top" class="scroll-link" aria-label="Back to top" style="display:none;">↑</a>
 
     <script src="js/main.js"></script>

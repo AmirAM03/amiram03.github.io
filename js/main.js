@@ -1,36 +1,41 @@
 // js/main.js
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Theme Toggle ---
-    const themeToggleBtn = document.querySelector('.theme-toggle-btn');
-    const sunIcon = document.querySelector('.sun-icon');
-    const moonIcon = document.querySelector('.moon-icon');
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    // --- Theme Toggle --- (Keep existing)
+    // ...
 
-    document.documentElement.setAttribute('data-theme', currentTheme);
-    if (currentTheme === 'dark') {
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-    } else {
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
+    // --- Dynamic Hero Gradient ---
+    const heroSection = document.getElementById('hero');
+    const dynamicGradientBg = heroSection.querySelector('.dynamic-gradient-background');
+    const heroGradients = [
+        'var(--gradient-hero-1)', // Make sure these CSS variables are defined
+        'var(--gradient-hero-2)',
+        'var(--gradient-hero-3)',
+        'var(--gradient-hero-4)',
+        'var(--gradient-hero-5)',
+        'var(--gradient-hero-6)'
+    ];
+    let currentGradientIndex = 0;
+
+    function changeHeroGradient() {
+        if (!dynamicGradientBg) return;
+        currentGradientIndex = (currentGradientIndex + 1) % heroGradients.length;
+        // We directly set the background style. The CSS transition will handle smoothness.
+        dynamicGradientBg.style.background = heroGradients[currentGradientIndex];
+        // If your gradients use angles that you want to animate, you could also change CSS variables
+        // document.documentElement.style.setProperty('--hero-gradient-angle', `${Math.random() * 360}deg`);
     }
 
-    themeToggleBtn.addEventListener('click', () => {
-        let newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        if (newTheme === 'dark') {
-            sunIcon.style.display = 'none';
-            moonIcon.style.display = 'block';
-        } else {
-            sunIcon.style.display = 'block';
-            moonIcon.style.display = 'none';
-        }
-    });
+    if (dynamicGradientBg) {
+        // Set initial gradient
+        dynamicGradientBg.style.background = heroGradients[currentGradientIndex];
+        // Change gradient every N seconds
+        setInterval(changeHeroGradient, 7000); // Change every 7 seconds
+    }
 
-    // --- Smooth Scrolling & Active Nav Link ---
+
+    // --- Smooth Scrolling & Active Nav Link --- (Mostly existing, check section IDs)
     const navLinks = document.querySelectorAll('header nav a, .scroll-link');
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section#hero, section.cv-section'); // Ensure hero is included for offset calc
 
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
@@ -39,35 +44,29 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetSection = document.getElementById(targetId);
 
             if (targetSection) {
-                // For smooth scroll (browser native)
-                // window.scrollTo({ top: targetSection.offsetTop - 70, behavior: 'smooth' });
+                let headerOffset = document.getElementById('main-header') ? document.getElementById('main-header').offsetHeight : 70;
+                window.scrollTo({ top: targetSection.offsetTop - headerOffset, behavior: 'smooth'});
 
-                // For section transitions (if not using native scroll)
-                sections.forEach(sec => sec.classList.remove('active-section'));
-                targetSection.classList.add('active-section');
-                // Scroll to top of target section. Adjust offset for fixed header.
-                window.scrollTo({ top: targetSection.offsetTop - document.getElementById('main-header').offsetHeight, behavior: 'smooth'});
-
-                // Update active class on nav links
-                navLinks.forEach(nav => nav.classList.remove('active'));
-                if(!this.id || this.id !== "back-to-top") { // Don't mark "back to top" as active nav item
-                   this.classList.add('active');
-                }
-                 // Special case for hero section link if it's not directly targeted by scroll
-                if (targetId === 'hero') {
-                    document.querySelector('header nav a[href="#hero"]').classList.add('active');
-                }
+                // Update active class on nav links (will also be handled by scroll observer)
+                // navLinks.forEach(nav => nav.classList.remove('active'));
+                // if(!this.id || this.id !== "back-to-top") {
+                //    this.classList.add('active');
+                // }
+                // if (targetId === 'hero') {
+                //     document.querySelector('header nav a[href="#hero"]').classList.add('active');
+                // }
             }
         });
     });
 
-    // Update active nav link on scroll
     function updateActiveNavLink() {
-        let currentSectionId = '';
+        let currentSectionId = 'hero'; // Default to hero
+        let headerOffset = document.getElementById('main-header') ? document.getElementById('main-header').offsetHeight : 70;
+
         sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - (document.getElementById('main-header').offsetHeight + 50)) { // Adjusted offset
+            const sectionTop = section.offsetTop - headerOffset - 50; // 50px buffer
+            // Check if section is at the top or has been scrolled past
+            if (window.scrollY >= sectionTop) {
                 currentSectionId = section.id;
             }
         });
@@ -78,112 +77,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.classList.add('active');
             }
         });
-        // Ensure home is active when at the very top
-        if (pageYOffset < sections[0].offsetTop - (document.getElementById('main-header').offsetHeight + 50) && currentSectionId === sections[0].id) {
-             document.querySelector('header nav a[href="#hero"]').classList.add('active');
-        }
     }
+    // Initial active link set
+    updateActiveNavLink();
 
 
-    // --- Typing Effect for Hero Section ---
-    const typedTextSpan = document.getElementById('typed-text');
-    const wordsToType = ["CyberSecurity Enthusiast", "Neuroscience Explorer", "Software Developer", "AI Innovator"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
+    // --- Typing Effect for Hero Section --- (Keep existing)
+    // ... The wordsToType array might need slight adjustment if your tagline changes
+    const wordsToType = ["CyberSecurity Specialist", "Data Scientist", "AI Developer", "Software Architect", "Neuroscience Researcher"];
+    // ...
 
-    function type() {
-        const currentWord = wordsToType[wordIndex];
-        if (isDeleting) {
-            typedTextSpan.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typedTextSpan.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-        }
+    // --- Scroll Animations for Sections (Intersection Observer) --- (Keep existing)
+    const allSections = document.querySelectorAll('.cv-section, #hero');
+    // ...
 
-        if (!isDeleting && charIndex === currentWord.length) {
-            setTimeout(() => isDeleting = true, 1500); // Pause at end of word
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % wordsToType.length;
-            setTimeout(type, 500); // Pause before typing next word
-            return;
-        }
-
-        const typeSpeed = isDeleting ? 75 : 150;
-        setTimeout(type, typeSpeed);
-    }
-    if (typedTextSpan) setTimeout(type, 500);
-
-
-    // --- Scroll Animations for Sections (Intersection Observer) ---
-    const allSections = document.querySelectorAll('.cv-section, #hero'); // Include hero too
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                // observer.unobserve(entry.target); // Optional: unobserve after first animation
-            } else {
-                // Optional: remove 'visible' to re-animate on scroll up/down
-                // entry.target.classList.remove('visible');
-            }
-        });
-    }, { threshold: 0.15 }); // Trigger when 15% of the section is visible
-
-    allSections.forEach(section => {
-        sectionObserver.observe(section);
-    });
-
-
-    // --- Back to Top Button ---
+    // --- Back to Top Button --- (Keep existing)
     const backToTopButton = document.getElementById('back-to-top');
     window.onscroll = () => {
         updateActiveNavLink(); // Call nav update on scroll
         if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            if (backToTopButton) backToTopButton.style.opacity = '1';
-            if (backToTopButton) backToTopButton.style.transform = 'translateY(0)';
+            if (backToTopButton) { // Check if button exists
+                 backToTopButton.style.opacity = '1';
+                 backToTopButton.style.transform = 'translateY(0)';
+            }
         } else {
-            if (backToTopButton) backToTopButton.style.opacity = '0';
-            if (backToTopButton) backToTopButton.style.transform = 'translateY(20px)';
+            if (backToTopButton) {
+                backToTopButton.style.opacity = '0';
+                backToTopButton.style.transform = 'translateY(20px)';
+            }
         }
     };
-    if (backToTopButton) {
-        backToTopButton.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    // ... (rest of backToTopButton logic)
 
-    // --- Contact Form (Basic Handler - for show, actual sending needs backend/service) ---
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // For now, just log or show an alert.
-            // For actual email sending, you'd use a service like Netlify Forms, Formspree, or a backend.
-            alert('Thank you for your message! (This is a demo - form not connected)');
-            this.reset();
-        });
-    }
 
-    // --- Current Year for Footer ---
-    const yearSpan = document.getElementById('current-year');
-    if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+    // --- Contact Form --- (Keep existing)
+    // ...
+
+    // --- Current Year for Footer --- (Keep existing)
+    // ...
 
     // Initial call to set active nav link based on page load (e.g. if there's a hash)
-    updateActiveNavLink();
+    // This part can be simplified a bit as updateActiveNavLink already handles it.
     if (window.location.hash) {
         const initialTargetId = window.location.hash.substring(1);
         const initialTargetSection = document.getElementById(initialTargetId);
+        let headerOffset = document.getElementById('main-header') ? document.getElementById('main-header').offsetHeight : 70;
         if (initialTargetSection) {
-            setTimeout(() => { // Timeout to ensure layout is complete
-                 window.scrollTo({ top: initialTargetSection.offsetTop - document.getElementById('main-header').offsetHeight, behavior: 'smooth'});
+            setTimeout(() => {
+                 window.scrollTo({ top: initialTargetSection.offsetTop - headerOffset, behavior: 'auto'}); // 'auto' for initial load
+                 updateActiveNavLink(); // Re-check active link after scroll
             }, 100);
         }
     } else {
-         // Ensure hero is active if no hash
-        document.querySelector('header nav a[href="#hero"]').classList.add('active');
+        updateActiveNavLink(); // Ensure correct link is active on load without hash
     }
-
 });
