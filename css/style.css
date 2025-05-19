@@ -1,127 +1,438 @@
 /* css/style.css */
+
+/* --- Base & Variables --- */
+:root {
+    /* Light Theme (Default) */
+    --bg-color: #f4f7f6; /* Off-white */
+    --text-color: #333333;
+    --header-bg: #ffffff;
+    --header-text: #333333;
+    --card-bg: #ffffff;
+    --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    --border-color: #e0e0e0;
+    --primary-color: #007bff; /* A nice blue */
+    --secondary-color: #6c757d; /* A neutral gray */
+
+    /* Gradient Options - Choose or create your own! (coolors.co, uiGradients.com) */
+    --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Purpleish */
+    --gradient-2: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); /* Pinkish */
+    --gradient-3: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); /* Bright Blue */
+    --gradient-main: var(--gradient-1); /* Default active gradient */
+
+    --font-primary: 'Poppins', sans-serif;
+    --font-secondary: 'Roboto Mono', monospace;
+
+    --max-width: 1100px;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a2e; /* Dark blue/purple */
+    --text-color: #e0e0e0;
+    --header-bg: #161625;
+    --header-text: #e0e0e0;
+    --card-bg: #232333;
+    --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    --border-color: #303040;
+    --primary-color: #3c91e6; /* Brighter blue for dark mode */
+    /* Keep gradients or adjust for dark mode if needed */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: #f4f4f4; /* Or a dark theme if you prefer */
-    color: #333;
-    transition: background-color 0.5s ease; /* For potential theming */
+    font-family: var(--font-primary);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
-    text-align: center;
-    position: sticky; /* Or fixed */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Typography & Links --- */
+h1, h2, h3 {
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-color); /* Will be overridden by .gradient-text */
+}
+h1 { font-size: clamp(2.5rem, 5vw, 3.5rem); }
+h2 { font-size: clamp(2rem, 4vw, 2.8rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+
+p { margin-bottom: 1rem; }
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: color var(--transition-speed) ease;
+}
+a:hover { color: #0056b3; } /* Darken primary */
+[data-theme="dark"] a:hover { color: #61dafb; }
+
+.gradient-text {
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    /* Fallback for browsers that don't support background-clip */
+    /* color: var(--primary-color);  */
+}
+
+/* --- Header / Navigation --- */
+#main-header {
+    position: fixed;
     top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--header-bg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
+    transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    padding: 15px 0;
+}
+[data-theme="dark"] #main-header { box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+
+#main-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header h1 {
-    margin: 0;
-    font-size: 2rem;
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-#main-nav ul {
-    padding: 0;
+#main-header nav ul {
     list-style: none;
     display: flex;
-    justify-content: center;
 }
 
-#main-nav ul li {
-    margin: 0 15px;
+#main-header nav ul li {
+    margin-left: 25px;
 }
 
-#main-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+#main-header nav ul li a {
+    color: var(--header-text);
+    font-weight: 600;
+    padding: 5px 0;
+    position: relative;
 }
-
-#main-nav ul li a:hover,
-#main-nav ul li a.active-nav-link { /* For highlighting active tab */
-    background-color: #555;
+#main-header nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-main);
+    transition: width var(--transition-speed) ease;
 }
-
-main {
-    padding: 20px;
-}
-
-.cv-section {
-    display: none; /* Initially hide all sections */
-    padding: 20px;
-    margin-bottom: 30px;
-    background-color: #fff; /* White background for sections */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    min-height: 70vh; /* Make sections take up decent space */
-}
-
-.cv-section.active {
-    display: block; /* Show the active section */
-    /* Add animation for appearance if desired */
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.cv-section h2 {
-    color: #333; /* Or a color specific to the section theme */
-    border-bottom: 2px solid #eee; /* Or themed color */
-    padding-bottom: 10px;
-    margin-top: 0;
-}
-
-.section-intro {
-    font-style: italic;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.graph-container {
+#main-header nav ul li a:hover::after,
+#main-header nav ul li a.active::after {
     width: 100%;
-    height: 500px; /* Adjust as needed, or make it responsive */
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    position: relative; /* Important for Cytoscape positioning */
 }
 
-.info-panel {
-    padding: 15px;
-    background-color: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 5px;
-    min-height: 50px;
+.theme-toggle-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--header-text);
+    padding: 5px;
+}
+.theme-toggle-btn svg {
+    width: 24px;
+    height: 24px;
+    transition: transform var(--transition-speed) ease;
+}
+.theme-toggle-btn:hover svg {
+    transform: scale(1.1) rotate(15deg);
+}
+
+/* --- Sections --- */
+.cv-section, #hero {
+    padding: 80px 0; /* Space for fixed header */
+    opacity: 0; /* For scroll animations */
+    transform: translateY(30px); /* For scroll animations */
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.cv-section.visible, #hero.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.full-height-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center; /* Often good for hero/intro sections */
+}
+.full-height-section > .container {
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+}
+.section-title::after { /* Underline effect */
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--gradient-main);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+/* --- Hero Section --- */
+#hero {
+    background: var(--gradient-1); /* Default gradient background for hero */
+    /* Or use an image: background: url('../assets/images/hero-bg.jpg') no-repeat center center/cover; */
+    color: #fff; /* Text color on gradient background */
+    text-align: left;
+}
+#hero h1, #hero p { color: #fff; } /* Override default text color */
+#hero .gradient-text {
+    background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%); /* Light gradient for text on dark bg */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+[data-theme="dark"] #hero { background: linear-gradient(135deg, #2c3e50, #1a1a2e); } /* Darker hero gradient */
+
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+.hero-text { flex: 1.2; }
+.hero-visual { flex: 0.8; text-align: center; }
+#profile-image {
+    max-width: 300px;
+    width: 100%;
+    border-radius: 50%; /* Circle */
+    border: 5px solid rgba(255,255,255,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.tagline {
+    font-size: 1.5rem;
+    font-family: var(--font-secondary);
+    margin-bottom: 1.5rem;
+    min-height: 2.2em; /* To prevent layout shift during typing */
+}
+.cursor {
+    display: inline-block;
+    background-color: #fff; /* Or var(--primary-color) */
+    animation: blink 1s step-end infinite;
+    width: 2px; /* Adjust as needed */
+    margin-left: 2px;
+}
+@keyframes blink {
+  from, to { background-color: transparent; }
+  50% { background-color: #fff; } /* Or var(--primary-color) */
+}
+[data-theme="dark"] .cursor { background-color: var(--primary-color); }
+[data-theme="dark"] @keyframes blink {
+  from, to { background-color: transparent; }
+  50% { background-color: var(--primary-color); }
+}
+
+
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.scroll-down-indicator a span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    transform: rotate(45deg);
+    margin: -5px;
+    animation: scroll-pulse 2s infinite;
+}
+.scroll-down-indicator a span:nth-child(2) { animation-delay: -0.2s; }
+.scroll-down-indicator a span:nth-child(3) { animation-delay: -0.4s; }
+
+@keyframes scroll-pulse {
+    0% { opacity: 0; transform: rotate(45deg) translate(-10px, -10px); }
+    50% { opacity: 1; }
+    100% { opacity: 0; transform: rotate(45deg) translate(10px, 10px); }
+}
+
+
+/* --- Buttons --- */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    text-align: center;
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    margin-right: 10px;
+    margin-bottom: 10px; /* For stacking on mobile */
+    border: none;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+.btn-primary {
+    background: var(--gradient-main);
+    color: #fff;
+}
+.btn-primary:hover { /* Keep text white, shadow might change a bit if needed */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+.btn-secondary {
+    background-color: transparent;
+    color: #fff; /* For hero section */
+    border: 2px solid #fff; /* For hero section */
+}
+/* Adjust secondary btn for normal sections if needed */
+.cv-section .btn-secondary {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+[data-theme="dark"] .cv-section .btn-secondary {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+/* --- Section Specifics & Cards --- */
+.section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    text-align: left;
+}
+.grid-item {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--card-shadow);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+[data-theme="dark"] .grid-item:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.25); }
+
+.grid-item h3 {
+    margin-top: 0;
+    color: var(--primary-color); /* Or use gradient-text */
+}
+[data-theme="dark"] .grid-item h3 { color: var(--primary-color); }
+
+
+/* --- Contact Section --- */
+#contact-form input,
+#contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg); /* Consistent with cards */
+    color: var(--text-color);
+    font-family: var(--font-primary);
+}
+#contact-form textarea {
+    resize: vertical;
+}
+.social-links {
+    text-align: center;
+    margin-top: 30px;
+}
+.social-links a {
+    margin: 0 15px;
+    display: inline-block;
+}
+.social-links img {
+    width: 30px;
+    height: 30px;
+    filter: grayscale(50%); /* Subtle effect */
+    transition: filter var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+.social-links a:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.1);
+}
+[data-theme="dark"] .social-links img { filter: invert(80%) sepia(10%) saturate(500%) hue-rotate(180deg) brightness(150%) contrast(90%); /* Adjust for dark mode icons */ }
+[data-theme="dark"] .social-links a:hover img { filter: none; }
+
+
+/* --- Footer --- */
+#main-footer {
+    background-color: var(--card-bg); /* Or header-bg */
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    margin-top: 50px;
     font-size: 0.9em;
 }
 
-/* Placeholder for node highlighting - will be used by Cytoscape style options too */
-.highlighted-node {
-    border: 3px solid gold !important; /* Example */
-}
-
-
-footer {
+/* --- Back to Top Button --- */
+#back-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--gradient-main);
+    color: white;
+    width: 40px;
+    height: 40px;
     text-align: center;
-    padding: 20px;
-    background: #333;
-    color: #fff;
-    margin-top: 30px;
+    line-height: 40px;
+    font-size: 20px;
+    border-radius: 50%;
+    box-shadow: var(--card-shadow);
+    transition: opacity var(--transition-speed) ease, transform var(--transition-speed) ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+#back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* You can add specific styles for each section if you want unique backgrounds/colors */
-/*
-#cybersecurity { background-image: url('../images/bg/cybersecurity-bg.jpg'); background-size: cover; }
-#neuroscience { background-color: #e0f2f7; }
-#software { background-color: #f0e6f7; }
-#datascience-ai { background-color: #e6f7f0; }
-*/
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    #main-header .container { flex-direction: column; }
+    #main-header nav { margin-top: 10px; }
+    #main-header nav ul li { margin: 0 10px; }
+
+    .hero-content { flex-direction: column; text-align: center; }
+    .hero-text { margin-bottom: 30px; }
+    #profile-image { max-width: 200px; }
+
+    .full-height-section { min-height: auto; padding: 60px 0; } /* Adjust for mobile */
+}

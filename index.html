@@ -3,89 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AM Interactive CV</title>
+    <title>AmirMohammad Ahmadi - CV</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- You might add graph-styles.css here too if you separate it -->
-    <!-- <link rel="stylesheet" href="css/graph-styles.css"> -->
+    <!-- Consider adding Google Fonts here if you choose specific ones -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>AmirMohammad Ahmadi - Interactive CV</h1>
-        <nav id="main-nav">
-            <ul>
-                <li><a href="#cybersecurity" data-section="cybersecurity">CyberSecurity</a></li>
-                <li><a href="#neuroscience" data-section="neuroscience">Neuroscience</a></li>
-                <li><a href="#software" data-section="software">Software Engineering</a></li>
-                <li><a href="#datascience-ai" data-section="datascience-ai">Data Science & AI</a></li>
-            </ul>
-        </nav>
+    <!-- Header / Navigation -->
+    <header id="main-header">
+        <div class="container">
+            <div class="logo">[YN]</div> <!-- Your Initials or a small logo SVG -->
+            <nav>
+                <ul>
+                    <li><a href="#hero" class="nav-link active">Home</a></li>
+                    <li><a href="#cybersecurity" class="nav-link">CyberSecurity</a></li>
+                    <li><a href="#neuroscience" class="nav-link">Neuroscience</a></li>
+                    <li><a href="#swe-ds-ai" class="nav-link">Software & AI</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="theme-toggle-btn" aria-label="Toggle Theme">
+                <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.5A8.5 8.5 0 1020.5 12 8.5 8.5 0 0012 3.5zm0 15V17a1 1 0 002 0v-1.5a1 1 0 00-2 0zm0-13V4a1 1 0 002 0V5.5A1 1 0 0012 7zM5.5 12H4a1 1 0 000 2h1.5a1 1 0 000-2zm13 0H17a1 1 0 000 2h1.5a1 1 0 000-2zM7.05 7.05a1 1 0 00-1.414-1.414L4.222 7.05a1 1 0 001.414 1.414zm9.898 9.898a1 1 0 00-1.414-1.414l-1.414 1.414a1 1 0 001.414 1.414zM7.05 16.95a1 1 0 001.414 1.414l1.414-1.414a1 1 0 00-1.414-1.414zM16.95 7.05a1 1 0 001.414-1.414l-1.414-1.414a1 1 0 00-1.414 1.414z"/></svg>
+                <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M12 2.5A9.5 9.5 0 002.5 12a9.5 9.5 0 0010.208 9.449A9.533 9.533 0 0021.5 12a9.499 9.499 0 00-9.5-9.5zM12 20a8 8 0 010-16 7.92 7.92 0 014.874 1.566A8.052 8.052 0 0012 4.013a8.013 8.013 0 00-7.987 7.987A8.052 8.052 0 004.013 12 7.92 7.92 0 0112 20z"/></svg>
+            </button>
+        </div>
     </header>
 
-    <main>
-        <section id="cybersecurity" class="cv-section active">
-            <h2>CyberSecurity</h2>
-            <div class="section-content">
-                <p class="section-intro">My expertise in cybersecurity focuses on...</p>
-                <div class="graph-container" id="cybersecurity-graph-container">
-                    <!-- Graph will be rendered here -->
-                </div>
-                <div class="info-panel" id="cybersecurity-info-panel">
-                    <p>Hover over a node to see details.</p>
-                </div>
+    <!-- Hero Section -->
+    <section id="hero" class="full-height-section active-section">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span class="gradient-text">AmirMohammad</span></h1>
+                <p class="tagline">A passionate <span id="typed-text"></span><span class="cursor"> </span></p>
+                <p>Exploring the intersections of CyberSecurity, Neuroscience, and AI-driven Software Solutions. Crafting innovative and secure digital experiences.</p>
+                <a href="#cybersecurity" class="btn btn-primary scroll-link">Explore My Work</a>
+                <a href="assets/[Your-Resume].pdf" target="_blank" class="btn btn-secondary">Download Resume</a>
             </div>
-        </section>
-
-        <section id="neuroscience" class="cv-section">
-            <h2>Neuroscience</h2>
-            <div class="section-content">
-                <p class="section-intro">My passion for neuroscience drives my work in...</p>
-                <div class="graph-container" id="neuroscience-graph-container">
-                    <!-- Graph will be rendered here -->
-                </div>
-                <div class="info-panel" id="neuroscience-info-panel">
-                    <p>Hover over a node to see details.</p>
-                </div>
+            <div class="hero-visual">
+                <!-- Placeholder for a cool visual/animation or profile image -->
+                <img src="assets/images/profile_placeholder.png" alt="Your Name" id="profile-image">
             </div>
-        </section>
+        </div>
+        <div class="scroll-down-indicator">
+            <a href="#cybersecurity" aria-label="Scroll to next section" class="scroll-link">
+                <span></span><span></span><span></span> <!-- Animated chevrons -->
+            </a>
+        </div>
+    </section>
 
-        <section id="software" class="cv-section">
-            <h2>Software Engineering</h2>
-            <div class="section-content">
-                <p class="section-intro">As a software engineer, I specialize in...</p>
-                <div class="graph-container" id="software-graph-container">
-                    <!-- Graph will be rendered here -->
-                </div>
-                <div class="info-panel" id="software-info-panel">
-                    <p>Hover over a node to see details.</p>
-                </div>
+    <!-- CyberSecurity Section -->
+    <section id="cybersecurity" class="cv-section full-height-section">
+        <div class="container">
+            <h2 class="section-title"><span class="gradient-text">CyberSecurity</span> Expertise</h2>
+            <div class="section-grid">
+                <!-- Content for CyberSecurity: skills, projects, certs -->
+                <div class="grid-item skill-card"><h3>Threat Modeling</h3><p>Details...</p></div>
+                <div class="grid-item project-card"><h3>Project X</h3><p>Secure App Dev...</p></div>
+                <div class="grid-item cert-card"><h3>Cert Y</h3><p>Issued by...</p></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="datascience-ai" class="cv-section">
-            <h2>Data Science & AI</h2>
-            <div class="section-content">
-                <p class="section-intro">In data science and AI, I leverage...</p>
-                <div class="graph-container" id="datascience-ai-graph-container">
-                    <!-- Graph will be rendered here -->
-                </div>
-                <div class="info-panel" id="datascience-ai-info-panel">
-                    <p>Hover over a node to see details.</p>
-                </div>
+    <!-- Neuroscience Section -->
+    <section id="neuroscience" class="cv-section full-height-section">
+        <div class="container">
+            <h2 class="section-title">Adventures in <span class="gradient-text">Neuroscience</span></h2>
+            <div class="section-grid">
+                <!-- Content for Neuroscience -->
+                 <div class="grid-item skill-card"><h3>BCI Research</h3><p>Details...</p></div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>© <span id="current-year"></span> [Your Name]. All rights reserved.</p>
-        <!-- Add links to GitHub, LinkedIn, etc. -->
+    <!-- Software Engineering & Data Science/AI Section -->
+    <section id="swe-ds-ai" class="cv-section full-height-section">
+        <div class="container">
+            <h2 class="section-title"><span class="gradient-text">Software</span> & <span class="gradient-text">AI</span> Innovations</h2>
+            <div class="section-grid">
+                <!-- Content for Software Engineering and Data Science/AI -->
+                <div class="grid-item skill-card"><h3>Machine Learning</h3><p>Details...</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="cv-section">
+        <div class="container">
+            <h2 class="section-title">Get In <span class="gradient-text">Touch</span></h2>
+            <form id="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email" required>
+                <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+            <div class="social-links">
+                <!-- Add your social media links here (e.g., LinkedIn, GitHub) -->
+                <a href="#" aria-label="LinkedIn"><img src="assets/images/linkedin-icon.svg" alt="LinkedIn"></a>
+                <a href="#" aria-label="GitHub"><img src="assets/images/github-icon.svg" alt="GitHub"></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container">
+            <p>© <span id="current-year"></span> AM. All rights reserved. Crafted with <span class="gradient-text"><3</span></p>
+        </div>
     </footer>
 
-    <!-- Load Libraries First -->
-	<script src="js/lib/cytoscape.min.js"></script>
-    <script src="js/lib/cytoscape-fcose.js"></script> <!-- << ADD THIS LINE -->
-    <!-- Then Your Custom Scripts -->
-    <script src="js/graph-loader.js"></script>
+    <!-- Back to Top Button -->
+    <a href="#hero" id="back-to-top" class="scroll-link" aria-label="Back to top" style="display:none;">↑</a>
+
     <script src="js/main.js"></script>
 </body>
 </html>
