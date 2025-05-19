@@ -1,7 +1,9 @@
 // js/graph-loader.js
+cytoscape.use( cytoscapeFcose ); // << ADD THIS LINE TO REGISTER THE EXTENSION
 
 // Keep track of loaded graphs to avoid re-initializing
 const loadedGraphs = {};
+
 
 function loadGraphForSection(sectionId) {
     if (loadedGraphs[sectionId]) {
