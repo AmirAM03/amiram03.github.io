@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Interactive CV - [Your Name]</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- You might add graph-styles.css here too if you separate it -->
+    <!-- <link rel="stylesheet" href="css/graph-styles.css"> -->
+</head>
+<body>
+
+    <header>
+        <h1>[Your Name] - Interactive CV</h1>
+        <nav id="main-nav">
+            <ul>
+                <li><a href="#cybersecurity" data-section="cybersecurity">CyberSecurity</a></li>
+                <li><a href="#neuroscience" data-section="neuroscience">Neuroscience</a></li>
+                <li><a href="#software" data-section="software">Software Engineering</a></li>
+                <li><a href="#datascience-ai" data-section="datascience-ai">Data Science & AI</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="cybersecurity" class="cv-section active">
+            <h2>CyberSecurity</h2>
+            <div class="section-content">
+                <p class="section-intro">My expertise in cybersecurity focuses on...</p>
+                <div class="graph-container" id="cybersecurity-graph-container">
+                    <!-- Graph will be rendered here -->
+                </div>
+                <div class="info-panel" id="cybersecurity-info-panel">
+                    <p>Hover over a node to see details.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="neuroscience" class="cv-section">
+            <h2>Neuroscience</h2>
+            <div class="section-content">
+                <p class="section-intro">My passion for neuroscience drives my work in...</p>
+                <div class="graph-container" id="neuroscience-graph-container">
+                    <!-- Graph will be rendered here -->
+                </div>
+                <div class="info-panel" id="neuroscience-info-panel">
+                    <p>Hover over a node to see details.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="software" class="cv-section">
+            <h2>Software Engineering</h2>
+            <div class="section-content">
+                <p class="section-intro">As a software engineer, I specialize in...</p>
+                <div class="graph-container" id="software-graph-container">
+                    <!-- Graph will be rendered here -->
+                </div>
+                <div class="info-panel" id="software-info-panel">
+                    <p>Hover over a node to see details.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="datascience-ai" class="cv-section">
+            <h2>Data Science & AI</h2>
+            <div class="section-content">
+                <p class="section-intro">In data science and AI, I leverage...</p>
+                <div class="graph-container" id="datascience-ai-graph-container">
+                    <!-- Graph will be rendered here -->
+                </div>
+                <div class="info-panel" id="datascience-ai-info-panel">
+                    <p>Hover over a node to see details.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© <span id="current-year"></span> [Your Name]. All rights reserved.</p>
+        <!-- Add links to GitHub, LinkedIn, etc. -->
+    </footer>
+
+    <!-- Load Libraries First -->
+    <script src="js/lib/cytoscape.min.js"></script>
+    <!-- Then Your Custom Scripts -->
+    <script src="js/graph-loader.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

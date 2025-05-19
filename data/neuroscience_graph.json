@@ -1,0 +1,14 @@
+{
+  "nodes": [
+    { "data": { "id": "sec_plus", "label": "Security+", "type": "certification", "details": "CompTIA Security+ SY0-601: Foundational cybersecurity skills.", "issuer": "CompTIA", "date": "2023-01-15", "logo": "images/certs/secplus-logo.png" } },
+    { "data": { "id": "network_defense", "label": "Network Defense", "type": "topic", "details": "Protecting network infrastructure." } },
+    { "data": { "id": "threat_intel", "label": "Threat Intelligence", "type": "topic", "details": "Analyzing threat actors and TTPs." } },
+    { "data": { "id": "risk_management", "label": "Risk Management", "type": "topic", "details": "Identifying and mitigating risks." } }
+  ],
+  "edges": [
+    { "data": { "source": "sec_plus", "target": "network_defense", "label": "covers" } },
+    { "data": { "source": "sec_plus", "target": "threat_intel", "label": "introduces" } },
+    { "data": { "source": "sec_plus", "target": "risk_management", "label": "covers" } },
+    { "data": { "source": "network_defense", "target": "risk_management", "label": "informs" } }
+  ]
+}
