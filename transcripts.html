@@ -52,7 +52,7 @@
     <div class="container mx-auto p-4 md:p-8 max-w-7xl">
         
         <header class="mb-8 text-center md:text-left">
-            <h1 id="student-name" class="text-3xl md:text-4xl font-bold text-slate-900">AmirMohammad Ahmadi</h1>
+            <h1 id="student-name" class="text-3xl md:text-4xl font-bold text-slate-900">[Your Full Name]</h1>
             <p class="text-lg text-slate-600">Academic Transcript - Computer Science, Sharif University of Technology</p>
         </header>
 
@@ -130,9 +130,9 @@
                 { name: 'General Mathematics 1', credits: 4, grade: 19.00, category: ['Math Foundations'] }, 
                 { name: 'General Mathematics 2', credits: 4, grade: 18.50, category: ['Math Foundations'] }, 
                 { name: 'Differential Equations', credits: 3, grade: 17.00, category: ['Math Foundations'] },
-                { name: 'Physics 1 & Lab', credits: 4, grade: 16.00, category: ['General'] },
-                { name: 'Physics 2 & Lab', credits: 4, grade: 15.50, category: ['General'] }, 
-                { name: 'Computer Programming', credits: 3, grade: 19.50, category: ['Systems & Engineering'] },
+                { name: 'Physics 1 & Lab', credits: 4, grade: 16.00, category: ['General', 'Math Foundations'] },
+                { name: 'Physics 2 & Lab', credits: 4, grade: 15.50, category: ['General', 'Math Foundations'] }, 
+                { name: 'Computer Programming', credits: 3, grade: 19.50, category: ['Systems & Engineering', 'Programming'] },
                 { name: 'General Workshop', credits: 1, grade: 18.00, category: ['General'] },
                 { name: 'Industrial Drawing 1', credits: 2, grade: 15.00, category: ['General'] }, 
                 { name: 'Engineering Mathematics', credits: 3, grade: 18.00, category: ['Math Foundations'] },
@@ -144,25 +144,25 @@
                 { name: 'Probability and Its Applications', credits: 4, grade: 20.00, category: ['Math Foundations', 'AI & Data Science'] }, 
                 { name: 'Numerical Analysis 1', credits: 4, grade: 17.50, category: ['Math Foundations', 'Systems & Engineering'] },
                 { name: 'Statistics and Its Applications', credits: 4, grade: 18.50, category: ['AI & Data Science', 'Math Foundations'] },
-                { name: 'Discrete Mathematics', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Math Foundations'] }, 
+                { name: 'Discrete Mathematics', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Math Foundations', 'Systems & Engineering'] }, 
                 { name: 'Mathematical Logic', credits: 3, grade: 15.50, category: ['Formal Methods & Theory', 'Math Foundations'] },
-                { name: 'Advanced Programming', credits: 4, grade: 19.00, category: ['Systems & Engineering'] },
+                { name: 'Advanced Programming', credits: 4, grade: 19.00, category: ['Systems & Engineering', 'Programming'] },
                 { name: 'Principles of Computer Systems', credits: 4, grade: 17.50, category: ['Systems & Engineering'] },
-                { name: 'Data Structures', credits: 4, grade: 19.00, category: ['Formal Methods & Theory', 'Systems & Engineering'] }, 
-                { name: 'Automata Theory and Languages', credits: 3, grade: 19.50, category: ['Formal Methods & Theory'] },
+                { name: 'Data Structures', credits: 4, grade: 19.00, category: ['Formal Methods & Theory', 'Systems & Engineering', 'Programming'] }, 
+                { name: 'Automata Theory and Languages', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Systems & Engineering'] },
                 { name: 'Principles of Operating Systems', credits: 3, grade: 17.00, category: ['Systems & Engineering'] },
-                { name: 'Compiler 1', credits: 3, grade: 17.50, category: ['Systems & Engineering'] },
-                { name: 'Databases', credits: 3, grade: 18.00, category: ['Systems & Engineering'] },
+                { name: 'Compiler 1', credits: 3, grade: 17.50, category: ['Systems & Engineering', 'Programming'] },
+                { name: 'Databases', credits: 3, grade: 18.00, category: ['Systems & Engineering', 'Programming'] },
                 { name: 'Intelligent Systems', credits: 3, grade: 18.50, category: ['AI & Data Science', 'Systems & Engineering'] },
                 { name: 'Numerical Analysis 2', credits: 3, grade: 17.00, category: ['Math Foundations', 'Systems & Engineering'] },
-                { name: 'Design and Analysis of Algorithms', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Systems & Engineering'] },
-                { name: 'Theory of Computation', credits: 3, grade: 19.00, category: ['Formal Methods & Theory'] }, 
+                { name: 'Design and Analysis of Algorithms', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Systems & Engineering', 'Programming'] },
+                { name: 'Theory of Computation', credits: 3, grade: 19.00, category: ['Formal Methods & Theory', 'Math Foundations'] }, 
                 { name: 'Stochastic Processes', credits: 3, grade: 19.00, category: ['AI & Data Science', 'Math Foundations'] }, 
-                { name: 'Machine Learning', credits: 3, grade: 19.50, category: ['AI & Data Science'] }, 
+                { name: 'Machine Learning', credits: 3, grade: 19.50, category: ['AI & Data Science', 'Systems & Engineering'] }, 
                 { name: 'Deep Learning', credits: 3, grade: 18.50, category: ['AI & Data Science'] },
-                { name: 'Formal Methods', credits: 3, grade: 19.00, category: ['Formal Methods & Theory'] },
-                { name: 'Program Verification', credits: 3, grade: 16.50, category: ['Formal Methods & Theory', 'Systems & Engineering'] },
-                { name: 'AI Security & Adversarial Machine Learning', credits: 2, grade: 19.50, category: ['AI & Data Science', 'Formal Methods & Theory'] },
+                { name: 'Formal Methods', credits: 3, grade: 17.00, category: ['Formal Methods & Theory'] },
+                { name: 'Program Verification', credits: 3, grade: 16.50, category: ['Formal Methods & Theory', 'Systems & Engineering', 'AI & Data Science'] },
+                { name: 'AI Security & Adversarial Machine Learning', credits: 2, grade: 19.50, category: ['AI & Data Science', 'Formal Methods & Theory', 'Systems & Engineering'] },
             ];
 
             const nameElement = document.getElementById('student-name');
