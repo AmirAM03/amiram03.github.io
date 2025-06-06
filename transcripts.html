@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A.M Interactive Academic Transcript</title>
+    <title>Interactive Academic Transcript</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,7 +74,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
                         <h3 class="text-lg font-semibold text-slate-500">Overall GPA</h3>
-                        <p id="stat-gpa" class="text-4xl font-bold text-sky-600">3.60</p>
+                        <p id="stat-gpa" class="text-4xl font-bold text-sky-600">3.82</p>
                     </div>
                     <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
                         <h3 class="text-lg font-semibold text-slate-500">Total Credits</h3>
@@ -117,52 +117,52 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const courses = [
-                { name: 'Islamic Thought 1', credits: 2, grade: 16.50, category: 'General' },
-                { name: 'Islamic Ethics', credits: 2, grade: 17.00, category: 'General' },
-                { name: 'Persian Language', credits: 2, grade: 15.50, category: 'General' },
-                { name: 'Physical Education 1', credits: 2, grade: 16.50, category: 'General' },
-                { name: 'History of Culture & Civilization', credits: 2, grade: 17.00, category: 'General' },
-                { name: 'Islamic Revolution', credits: 2, grade: 15.50, category: 'General' },
-                { name: 'Introduction to Sacred Defense', credits: 2, grade: 16.50, category: 'General' },
-                { name: 'Physical Education 2', credits: 2, grade: 17.00, category: 'General' },
-                { name: 'Quranic Interpretation', credits: 2, grade: 15.50, category: 'General' },
-                { name: 'Family Knowledge', credits: 2, grade: 16.50, category: 'General' },
-                { name: 'General Mathematics 1', credits: 4, grade: 18.00, category: 'Math Foundations' }, 
-                { name: 'General Mathematics 2', credits: 4, grade: 18.00, category: 'Math Foundations' }, 
-                { name: 'Differential Equations', credits: 3, grade: 16.50, category: 'Math Foundations' },
-                { name: 'Physics 1 & Lab', credits: 4, grade: 15.50, category: 'General' },
-                { name: 'Physics 2 & Lab', credits: 4, grade: 15.00, category: 'General' }, 
-                { name: 'Computer Programming', credits: 3, grade: 17.50, category: 'Systems & Engineering' },
-                { name: 'General Workshop', credits: 1, grade: 17.00, category: 'General' },
-                { name: 'Industrial Drawing 1', credits: 2, grade: 15.00, category: 'General' }, 
-                { name: 'Engineering Mathematics', credits: 3, grade: 17.00, category: 'Math Foundations' },
-                { name: 'Macroeconomics', credits: 3, grade: 15.00, category: 'General' }, 
-                { name: 'Principles of Management', credits: 3, grade: 15.50, category: 'General' }, 
-                { name: 'General Sociology', credits: 3, grade: 16.00, category: 'General' },
-                { name: 'Principles of Entrepreneurship', credits: 3, grade: 15.00, category: 'General' }, 
-                { name: 'Linear Algebra 1', credits: 4, grade: 16.50, category: 'Math Foundations' },
-                { name: 'Probability and Its Applications', credits: 4, grade: 18.00, category: 'Math Foundations' }, 
-                { name: 'Numerical Analysis 1', credits: 4, grade: 16.50, category: 'Math Foundations' },
-                { name: 'Statistics and Its Applications', credits: 4, grade: 17.00, category: 'AI & Data Science' },
-                { name: 'Discrete Mathematics', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' }, 
-                { name: 'Mathematical Logic', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
-                { name: 'Advanced Programming', credits: 4, grade: 17.50, category: 'Systems & Engineering' },
-                { name: 'Principles of Computer Systems', credits: 4, grade: 16.50, category: 'Systems & Engineering' },
-                { name: 'Data Structures', credits: 4, grade: 18.00, category: 'Formal Methods & Theory' }, 
-                { name: 'Automata Theory and Languages', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
-                { name: 'Principles of Operating Systems', credits: 3, grade: 16.50, category: 'Systems & Engineering' },
-                { name: 'Compiler 1', credits: 3, grade: 16.50, category: 'Systems & Engineering' },
-                { name: 'Databases', credits: 3, grade: 16.50, category: 'Systems & Engineering' },
-                { name: 'Intelligent Systems', credits: 3, grade: 17.00, category: 'AI & Data Science' },
-                { name: 'Numerical Analysis 2', credits: 3, grade: 16.50, category: 'Math Foundations' },
-                { name: 'Design and Analysis of Algorithms', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
-                { name: 'Theory of Computation', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' }, 
-                { name: 'Stochastic Processes', credits: 3, grade: 18.00, category: 'AI & Data Science' }, 
-                { name: 'Machine Learning', credits: 3, grade: 18.00, category: 'AI & Data Science' }, 
-                { name: 'Deep Learning', credits: 3, grade: 17.00, category: 'AI & Data Science' },
-                { name: 'Formal Methods', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
-                { name: 'Program Verification', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
-                { name: 'AI Security & Adversarial Machine Learning', credits: 2, grade: 17.00, category: 'AI & Data Science' },
+                { name: 'Islamic Thought 1', credits: 2, grade: 17.50, category: ['General'] },
+                { name: 'Islamic Ethics', credits: 2, grade: 18.00, category: ['General'] },
+                { name: 'Persian Language', credits: 2, grade: 16.50, category: ['General'] },
+                { name: 'Physical Education 1', credits: 2, grade: 17.00, category: ['General'] },
+                { name: 'History of Culture & Civilization', credits: 2, grade: 18.00, category: ['General'] },
+                { name: 'Islamic Revolution', credits: 2, grade: 16.00, category: ['General'] },
+                { name: 'Introduction to Sacred Defense', credits: 2, grade: 17.00, category: ['General'] },
+                { name: 'Physical Education 2', credits: 2, grade: 17.50, category: ['General'] },
+                { name: 'Quranic Interpretation', credits: 2, grade: 16.00, category: ['General'] },
+                { name: 'Family Knowledge', credits: 2, grade: 17.00, category: ['General'] },
+                { name: 'General Mathematics 1', credits: 4, grade: 19.00, category: ['Math Foundations'] }, 
+                { name: 'General Mathematics 2', credits: 4, grade: 18.50, category: ['Math Foundations'] }, 
+                { name: 'Differential Equations', credits: 3, grade: 17.00, category: ['Math Foundations'] },
+                { name: 'Physics 1 & Lab', credits: 4, grade: 16.00, category: ['General'] },
+                { name: 'Physics 2 & Lab', credits: 4, grade: 15.50, category: ['General'] }, 
+                { name: 'Computer Programming', credits: 3, grade: 19.50, category: ['Systems & Engineering'] },
+                { name: 'General Workshop', credits: 1, grade: 18.00, category: ['General'] },
+                { name: 'Industrial Drawing 1', credits: 2, grade: 15.00, category: ['General'] }, 
+                { name: 'Engineering Mathematics', credits: 3, grade: 18.00, category: ['Math Foundations'] },
+                { name: 'Macroeconomics', credits: 3, grade: 15.00, category: ['General'] }, 
+                { name: 'Principles of Management', credits: 3, grade: 16.00, category: ['General'] }, 
+                { name: 'General Sociology', credits: 3, grade: 16.50, category: ['General'] },
+                { name: 'Principles of Entrepreneurship', credits: 3, grade: 14.50, category: ['General'] }, 
+                { name: 'Linear Algebra 1', credits: 4, grade: 18.00, category: ['Math Foundations'] },
+                { name: 'Probability and Its Applications', credits: 4, grade: 20.00, category: ['Math Foundations', 'AI & Data Science'] }, 
+                { name: 'Numerical Analysis 1', credits: 4, grade: 17.50, category: ['Math Foundations', 'Systems & Engineering'] },
+                { name: 'Statistics and Its Applications', credits: 4, grade: 18.50, category: ['AI & Data Science', 'Math Foundations'] },
+                { name: 'Discrete Mathematics', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Math Foundations'] }, 
+                { name: 'Mathematical Logic', credits: 3, grade: 15.50, category: ['Formal Methods & Theory', 'Math Foundations'] },
+                { name: 'Advanced Programming', credits: 4, grade: 19.00, category: ['Systems & Engineering'] },
+                { name: 'Principles of Computer Systems', credits: 4, grade: 17.50, category: ['Systems & Engineering'] },
+                { name: 'Data Structures', credits: 4, grade: 19.00, category: ['Formal Methods & Theory', 'Systems & Engineering'] }, 
+                { name: 'Automata Theory and Languages', credits: 3, grade: 19.50, category: ['Formal Methods & Theory'] },
+                { name: 'Principles of Operating Systems', credits: 3, grade: 17.00, category: ['Systems & Engineering'] },
+                { name: 'Compiler 1', credits: 3, grade: 17.50, category: ['Systems & Engineering'] },
+                { name: 'Databases', credits: 3, grade: 18.00, category: ['Systems & Engineering'] },
+                { name: 'Intelligent Systems', credits: 3, grade: 18.50, category: ['AI & Data Science', 'Systems & Engineering'] },
+                { name: 'Numerical Analysis 2', credits: 3, grade: 17.00, category: ['Math Foundations', 'Systems & Engineering'] },
+                { name: 'Design and Analysis of Algorithms', credits: 3, grade: 19.50, category: ['Formal Methods & Theory', 'Systems & Engineering'] },
+                { name: 'Theory of Computation', credits: 3, grade: 19.00, category: ['Formal Methods & Theory'] }, 
+                { name: 'Stochastic Processes', credits: 3, grade: 19.00, category: ['AI & Data Science', 'Math Foundations'] }, 
+                { name: 'Machine Learning', credits: 3, grade: 19.50, category: ['AI & Data Science'] }, 
+                { name: 'Deep Learning', credits: 3, grade: 18.50, category: ['AI & Data Science'] },
+                { name: 'Formal Methods', credits: 3, grade: 19.00, category: ['Formal Methods & Theory'] },
+                { name: 'Program Verification', credits: 3, grade: 16.50, category: ['Formal Methods & Theory', 'Systems & Engineering'] },
+                { name: 'AI Security & Adversarial Machine Learning', credits: 2, grade: 19.50, category: ['AI & Data Science', 'Formal Methods & Theory'] },
             ];
 
             const nameElement = document.getElementById('student-name');
@@ -264,7 +264,7 @@
 
             function updateUI(filter) {
                 currentFilter = filter;
-                const filteredCourses = filter === 'All' ? courses : courses.filter(c => c.category === filter);
+                const filteredCourses = filter === 'All' ? courses : courses.filter(c => c.category.includes(filter));
                 
                 renderTable(filteredCourses);
                 renderChart(filteredCourses);
