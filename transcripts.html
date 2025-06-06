@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Academic Transcript</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Slate & Sky -->
+    <!-- Application Structure Plan: A dashboard-style SPA featuring a header with key stats (Name, GPA), a filterable navigation sidebar, and a main content area with an interactive grade distribution chart and a dynamic course table. This structure allows the viewer (Prof. Zikelic) to quickly assess overall performance and then dive into specific areas of interest (like Formal Methods or AI) with a single click, which is more efficient and engaging than reading a static table. -->
+    <!-- Visualization & Content Choices: Grade Distribution -> Goal: Inform/Compare -> Viz: Chart.js Doughnut Chart -> Interaction: Hover to see grade counts. Justification: Provides a quick, high-level overview of academic consistency. Course List -> Goal: Organize/Inform -> Viz: Dynamic HTML Table -> Interaction: Filter by subject area. Justification: Allows targeted exploration of relevant coursework. Key Metrics -> Goal: Inform -> Viz: HTML/Tailwind Stat Cards -> Interaction: Updates on filter. Justification: Highlights top-line achievements immediately. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .filter-btn {
+            transition: all 0.2s ease-in-out;
+        }
+        .filter-btn.active {
+            background-color: #0ea5e9; /* sky-500 */
+            color: white;
+            font-weight: 600;
+        }
+        .table-responsive {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-7xl">
+        
+        <header class="mb-8 text-center md:text-left">
+            <h1 id="student-name" class="text-3xl md:text-4xl font-bold text-slate-900">[Your Full Name]</h1>
+            <p class="text-lg text-slate-600">Academic Transcript - Computer Science, Sharif University of Technology</p>
+        </header>
+
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <aside class="lg:col-span-3 bg-white p-6 rounded-2xl shadow-sm h-fit">
+                <h2 class="text-xl font-bold mb-4">Course Explorer</h2>
+                <p class="text-sm text-slate-600 mb-6">Filter courses by academic area to see relevant grades and performance metrics.</p>
+                <div id="filters" class="flex flex-col space-y-2">
+                    <button data-filter="All" class="filter-btn w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-slate-200">All Courses</button>
+                    <button data-filter="Formal Methods & Theory" class="filter-btn w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-slate-200">Formal Methods & Theory</button>
+                    <button data-filter="AI & Data Science" class="filter-btn w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-slate-200">AI & Data Science</button>
+                    <button data-filter="Systems & Engineering" class="filter-btn w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-slate-200">Systems & Engineering</button>
+                    <button data-filter="Math Foundations" class="filter-btn w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-slate-200">Math Foundations</button>
+                </div>
+            </aside>
+
+            <div class="lg:col-span-9 space-y-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+                        <h3 class="text-lg font-semibold text-slate-500">Overall GPA</h3>
+                        <p id="stat-gpa" class="text-4xl font-bold text-sky-600">3.60</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+                        <h3 class="text-lg font-semibold text-slate-500">Total Credits</h3>
+                        <p id="stat-credits" class="text-4xl font-bold text-sky-600">135</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-2xl shadow-sm text-center">
+                        <h3 id="filter-title" class="text-lg font-semibold text-slate-500">All Courses</h3>
+                        <p id="stat-courses-count" class="text-4xl font-bold text-sky-600">46</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 xl:grid-cols-5 gap-8">
+                    <div class="xl:col-span-2 bg-white p-6 rounded-2xl shadow-sm">
+                        <h3 class="text-xl font-bold mb-4 text-center">Grade Distribution</h3>
+                        <div class="chart-container">
+                            <canvas id="gradeDistributionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="xl:col-span-3 bg-white p-6 rounded-2xl shadow-sm">
+                        <h3 class="text-xl font-bold mb-4">Course List</h3>
+                        <div class="table-responsive">
+                            <table class="w-full text-sm text-left text-slate-600">
+                                <thead class="text-xs text-slate-700 uppercase bg-slate-100 rounded-t-lg">
+                                    <tr>
+                                        <th scope="col" class="px-6 py-3">Course Name</th>
+                                        <th scope="col" class="px-6 py-3 text-center">Credits</th>
+                                        <th scope="col" class="px-6 py-3 text-center">Grade</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="courses-table-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const courses = [
+                { name: 'Islamic Thought 1', credits: 2, grade: 16.50, category: 'General' },
+                { name: 'Islamic Ethics', credits: 2, grade: 17.00, category: 'General' },
+                { name: 'Persian Language', credits: 2, grade: 15.50, category: 'General' },
+                { name: 'Physical Education 1', credits: 2, grade: 16.50, category: 'General' },
+                { name: 'History of Culture & Civilization', credits: 2, grade: 17.00, category: 'General' },
+                { name: 'Islamic Revolution', credits: 2, grade: 15.50, category: 'General' },
+                { name: 'Introduction to Sacred Defense', credits: 2, grade: 16.50, category: 'General' },
+                { name: 'Physical Education 2', credits: 2, grade: 17.00, category: 'General' },
+                { name: 'Quranic Interpretation', credits: 2, grade: 15.50, category: 'General' },
+                { name: 'Family Knowledge', credits: 2, grade: 16.50, category: 'General' },
+                { name: 'General Mathematics 1', credits: 4, grade: 18.00, category: 'Math Foundations' }, 
+                { name: 'General Mathematics 2', credits: 4, grade: 18.00, category: 'Math Foundations' }, 
+                { name: 'Differential Equations', credits: 3, grade: 16.50, category: 'Math Foundations' },
+                { name: 'Physics 1 & Lab', credits: 4, grade: 15.50, category: 'General' },
+                { name: 'Physics 2 & Lab', credits: 4, grade: 15.00, category: 'General' }, 
+                { name: 'Computer Programming', credits: 3, grade: 17.50, category: 'Systems & Engineering' },
+                { name: 'General Workshop', credits: 1, grade: 17.00, category: 'General' },
+                { name: 'Industrial Drawing 1', credits: 2, grade: 15.00, category: 'General' }, 
+                { name: 'Engineering Mathematics', credits: 3, grade: 17.00, category: 'Math Foundations' },
+                { name: 'Macroeconomics', credits: 3, grade: 15.00, category: 'General' }, 
+                { name: 'Principles of Management', credits: 3, grade: 15.50, category: 'General' }, 
+                { name: 'General Sociology', credits: 3, grade: 16.00, category: 'General' },
+                { name: 'Principles of Entrepreneurship', credits: 3, grade: 15.00, category: 'General' }, 
+                { name: 'Linear Algebra 1', credits: 4, grade: 16.50, category: 'Math Foundations' },
+                { name: 'Probability and Its Applications', credits: 4, grade: 18.00, category: 'Math Foundations' }, 
+                { name: 'Numerical Analysis 1', credits: 4, grade: 16.50, category: 'Math Foundations' },
+                { name: 'Statistics and Its Applications', credits: 4, grade: 17.00, category: 'AI & Data Science' },
+                { name: 'Discrete Mathematics', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' }, 
+                { name: 'Mathematical Logic', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
+                { name: 'Advanced Programming', credits: 4, grade: 17.50, category: 'Systems & Engineering' },
+                { name: 'Principles of Computer Systems', credits: 4, grade: 16.50, category: 'Systems & Engineering' },
+                { name: 'Data Structures', credits: 4, grade: 18.00, category: 'Formal Methods & Theory' }, 
+                { name: 'Automata Theory and Languages', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
+                { name: 'Principles of Operating Systems', credits: 3, grade: 16.50, category: 'Systems & Engineering' },
+                { name: 'Compiler 1', credits: 3, grade: 16.50, category: 'Systems & Engineering' },
+                { name: 'Databases', credits: 3, grade: 16.50, category: 'Systems & Engineering' },
+                { name: 'Intelligent Systems', credits: 3, grade: 17.00, category: 'AI & Data Science' },
+                { name: 'Numerical Analysis 2', credits: 3, grade: 16.50, category: 'Math Foundations' },
+                { name: 'Design and Analysis of Algorithms', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
+                { name: 'Theory of Computation', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' }, 
+                { name: 'Stochastic Processes', credits: 3, grade: 18.00, category: 'AI & Data Science' }, 
+                { name: 'Machine Learning', credits: 3, grade: 18.00, category: 'AI & Data Science' }, 
+                { name: 'Deep Learning', credits: 3, grade: 17.00, category: 'AI & Data Science' },
+                { name: 'Formal Methods', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
+                { name: 'Program Verification', credits: 3, grade: 18.00, category: 'Formal Methods & Theory' },
+                { name: 'AI Security & Adversarial Machine Learning', credits: 2, grade: 17.00, category: 'AI & Data Science' },
+            ];
+
+            const nameElement = document.getElementById('student-name');
+            if (nameElement.textContent === '[Your Full Name]') {
+                const name = prompt("Please enter your full name:", "Jane Doe");
+                if (name) {
+                    document.querySelectorAll('#student-name').forEach(el => el.textContent = name);
+                }
+            }
+
+            const tableBody = document.getElementById('courses-table-body');
+            const statGpa = document.getElementById('stat-gpa');
+            const statCredits = document.getElementById('stat-credits');
+            const statCoursesCount = document.getElementById('stat-courses-count');
+            const filterTitle = document.getElementById('filter-title');
+            const filtersContainer = document.getElementById('filters');
+            let currentFilter = 'All';
+            let chart;
+
+            function convertToGPA(grade) {
+                if (grade >= 18) return 4.0;
+                if (grade >= 16) return 3.5;
+                if (grade >= 14) return 3.0;
+                if (grade >= 12) return 2.5;
+                if (grade >= 10) return 2.0;
+                return 1.0;
+            }
+
+            function calculateMetrics(data) {
+                if (data.length === 0) return { gpa: 0, credits: 0, count: 0 };
+                let totalPoints = 0;
+                let totalCredits = 0;
+                data.forEach(course => {
+                    totalPoints += convertToGPA(course.grade) * course.credits;
+                    totalCredits += course.credits;
+                });
+                const gpa = totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : 0;
+                return { gpa, credits: totalCredits, count: data.length };
+            }
+
+            function renderTable(data) {
+                tableBody.innerHTML = '';
+                data.forEach(course => {
+                    const row = `
+                        <tr class="bg-white border-b hover:bg-slate-50">
+                            <td class="px-6 py-4 font-medium text-slate-900">${course.name}</td>
+                            <td class="px-6 py-4 text-center">${course.credits}</td>
+                            <td class="px-6 py-4 text-center font-semibold ${course.grade >= 18 ? 'text-green-600' : course.grade >= 16 ? 'text-blue-600' : 'text-slate-600'}">${course.grade.toFixed(2)}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            }
+
+            function renderChart(data) {
+                const gradeRanges = { 'A (18-20)': 0, 'B (16-17.9)': 0, 'C (14-15.9)': 0, 'D (12-13.9)': 0 };
+                data.forEach(course => {
+                    if (course.grade >= 18) gradeRanges['A (18-20)']++;
+                    else if (course.grade >= 16) gradeRanges['B (16-17.9)']++;
+                    else if (course.grade >= 14) gradeRanges['C (14-15.9)']++;
+                    else gradeRanges['D (12-13.9)']++;
+                });
+
+                const ctx = document.getElementById('gradeDistributionChart').getContext('2d');
+                
+                if (chart) {
+                    chart.destroy();
+                }
+
+                chart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(gradeRanges),
+                        datasets: [{
+                            label: 'Number of Courses',
+                            data: Object.values(gradeRanges),
+                            backgroundColor: ['#16a34a', '#2563eb', '#f97316', '#78716c'],
+                            borderColor: '#ffffff',
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 20
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            function updateUI(filter) {
+                currentFilter = filter;
+                const filteredCourses = filter === 'All' ? courses : courses.filter(c => c.category === filter);
+                
+                renderTable(filteredCourses);
+                renderChart(filteredCourses);
+                
+                const metrics = calculateMetrics(filteredCourses);
+                statGpa.textContent = metrics.gpa;
+                statCredits.textContent = metrics.credits;
+                statCoursesCount.textContent = metrics.count;
+                filterTitle.textContent = filter === 'All' ? 'All Courses' : `${filter}`;
+
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.filter === filter);
+                });
+            }
+
+            filtersContainer.addEventListener('click', (e) => {
+                if (e.target.tagName === 'BUTTON') {
+                    const filter = e.target.dataset.filter;
+                    updateUI(filter);
+                }
+            });
+
+            const initialMetrics = calculateMetrics(courses);
+            statGpa.textContent = initialMetrics.gpa;
+            statCredits.textContent = initialMetrics.credits;
+            statCoursesCount.textContent = initialMetrics.count;
+
+            updateUI('All'); 
+        });
+    </script>
+</body>
+</html>
